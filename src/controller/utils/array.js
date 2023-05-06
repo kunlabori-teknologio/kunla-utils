@@ -179,6 +179,112 @@ const keepObjectByKeyValue = (
 };
 
 /**
+ * Matches objects from two arrays based on the given key values, and adds specified keys to merge.
+ * 
+ * @param {Array} arrayThatIsChanged - The array whose objects will be changed.
+ * @param {Array} arrayThatChanges - The array whose objects will change the first array.
+ * @param {Array} keyValuesToMatch - The key values to match between the objects of the arrays.
+ * @param {Array} keysToMerge - The keys to merge from the objects of the second array to the objects of the first array.
+ * @param {string} logicalOperator - The logical operator to use for matching ("AND" or "OR"). Default is "AND".
+ * @returns {Array} - The resulting array with matched objects and merged keys.
+ */
+const matchObjectsByKeyValueAndAddKeysToMerge = (
+  arrayThatIsChanged,
+  arrayThatChanges,
+  keyValuesToMatch,
+  keysToMerge,
+  logicalOperator = "AND"
+) => {
+  const result = [];
+
+  arrayThatIsChanged.forEach((obj1) => {
+    arrayThatChanges.forEach((obj2) => {
+      if (logicalOperator.toUpperCase() === "AND") {
+        keyValuesToMatch.every((key) => {
+          if (key.dataFormat) {
+            switch (key.dataFormat.option) {
+              case 'substring':
+                if (obj1[key.originalIdentificator].substring(key.dataFormat.start, key.dataFormat.end) === obj2[key.originalIdentificator].substring(key.dataFormat.start, key.dataFormat.end)) {                  
+                  const mergedObj = { ...obj1 };
+                  
+                  keysToMerge.forEach((key) => {
+                    mergedObj[key.newIdentificator] = obj2[key.originalIdentificator];
+                  });
+
+                  result.push(mergedObj);
+                }
+                break;
+            
+              default:
+                if (obj1[key.originalIdentificator] === obj2[key.originalIdentificator]) {
+                  const mergedObj = { ...obj1 };
+
+                  keysToMerge.forEach((key) => {
+                    mergedObj[key.newIdentificator] = obj2[key.originalIdentificator];
+                  });
+
+                  result.push(mergedObj);
+                }
+                break;
+            }
+          }
+
+          if (!key.dataFormat) {
+            obj1[key.originalIdentificator] === obj2[key.originalIdentificator]
+          }
+        });
+      } else if (logicalOperator.toUpperCase() === "OR") {
+        keyValuesToMatch.some((key) => {
+          if (key.dataFormat) {
+            switch (key.dataFormat.option) {
+              case 'substring':
+                if (obj1[key.originalIdentificator].substring(key.dataFormat.start, key.dataFormat.end) === obj2[key.originalIdentificator].substring(key.dataFormat.start, key.dataFormat.end)) {                  
+                  const mergedObj = { ...obj1 };
+
+                  keysToMerge.forEach((key) => {
+                    mergedObj[key.newIdentificator] = obj2[key];
+                  });
+
+                  result.push(mergedObj);
+                }
+                break;
+            
+              default:
+                if (obj1[key.originalIdentificator] === obj2[key.originalIdentificator]) {
+                  const mergedObj = { ...obj1 };
+
+                  keysToMerge.forEach((key) => {
+                    mergedObj[key.newIdentificator] = obj2[key];
+                  });
+
+                  result.push(mergedObj);
+                }
+                break;
+            }
+          }
+
+          if (!key.dataFormat) {
+            if (obj1[key.originalIdentificator] === obj2[key.originalIdentificator]) {
+              const mergedObj = { ...obj1 };
+
+              keysToMerge.forEach((key) => {
+                mergedObj[key.newIdentificator] = obj2[key];
+              });
+
+              result.push(mergedObj);
+            }
+          }
+        });
+      } else {
+        throw new Error("Invalid logical operator. Supported values: AND, OR");
+      }
+    });
+  });
+
+  return result;
+};
+
+/**
  * Merges two arrays of objects by matching key-value pairs and adding specified keys from the second array to the first.
  *
  * @param {Array} arrayThatIsChanged - The array of objects to be updated with the keys from the second array.
