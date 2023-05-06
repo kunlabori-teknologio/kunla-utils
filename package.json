@@ -1,0 +1,15 @@
+{
+  "name": "kunla-utils",
+  "version": "0.0.1",
+  "description": "Trying to make things easier",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kunlatek",
+  "license": "ISC",
+  "dependencies": {
+    "convert-excel-to-json": "^1.7.0",
+    "pluralize": "^8.0.0"
+  }
+}
