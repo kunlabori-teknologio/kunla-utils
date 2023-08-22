@@ -69,9 +69,24 @@ const capitalization = (term) => {
     });
 }
 
+const setIdToPropertyName = (text) => {
+  let propertyName = '';
+  const array = id.split('-');
+  propertyName += array[0].toLowerCase();
+  for (let i = 0; i < array.length; i++) {
+    const element = array[i];
+
+    if (i > 0)
+      propertyName += element.charAt(0).toUpperCase() + element.slice(1);
+  }
+
+  return propertyName;
+}
+
 module.exports = {
   pascalfy,
   kebabfy,
   plurarize,
   singularize,
+  setIdToPropertyName
 }
