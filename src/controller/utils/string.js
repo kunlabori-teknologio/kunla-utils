@@ -72,6 +72,6 @@ const capitalization = (term) => {
 module.exports = {
   pascalfy,
   kebabfy,
-  pluralize,
+  plurarize,
   singularize,
 }
