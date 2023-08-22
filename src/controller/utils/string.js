@@ -69,7 +69,7 @@ const capitalization = (term) => {
     });
 }
 
-const setIdToPropertyName = (text) => {
+const setIdToPropertyName = (id) => {
   let propertyName = '';
   const array = id.split('-');
   propertyName += array[0].toLowerCase();
