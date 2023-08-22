@@ -6,5 +6,6 @@ module.exports = {
   convert,
   array,
   file,
-  object
+  object,
+  string
 };
