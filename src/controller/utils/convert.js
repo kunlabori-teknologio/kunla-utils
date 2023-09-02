@@ -1,6 +1,5 @@
 const chp = require('child_process');
 const file = require('./file');
-const excel2json = require('convert-excel-to-json');
 
 /**
  * Converts a .docx file to an .html file using the Mammoth Python library.

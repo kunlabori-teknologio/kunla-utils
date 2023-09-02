@@ -9,7 +9,6 @@
   "author": "Kunlatek",
   "license": "ISC",
   "dependencies": {
-    "convert-excel-to-json": "^1.7.0",
     "pluralize": "^8.0.0"
   }
 }
