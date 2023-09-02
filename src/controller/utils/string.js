@@ -1,4 +1,4 @@
-const plurar = require("pluralize");
+const plurarize = require("pluralize");
 
 /**
  * Converts the given text to PascalCase.
@@ -42,7 +42,7 @@ const kebabfy = (text) => {
  * @returns {string} - The pluralized version of the input text.
  */
 const plurarize = (text) => {
-  return plurar(text);
+  return plurarize(text);
 }
 
 /**
@@ -52,7 +52,7 @@ const plurarize = (text) => {
  * @returns {string} - The singularized version of the input text.
  */
 const singularize = (text) => {
-  return plurar.singular(text);
+  return plurarize.singular(text);
 }
 
 /**
